@@ -37,6 +37,7 @@ if __name__ == '__main__':
     # save_to = 'to_db'  # args.__getattribute__('save') if args.__contains__('save') else 'to_db'
     # normalize_level = 1  # args.__getattribute__('level') if args.__contains__('normalize_level') else 1
 
+    print('Starting...')
     save_to = 'to_db'
     normalize_level = 1
 
@@ -44,8 +45,10 @@ if __name__ == '__main__':
     data2 = transform.normalize('./datasets/c1fb85c6-1803-4a83-8de8-6fec7b324a04.json', level=normalize_level)
 
     if save_to == 'to_db':
+        print('Connecting to database')
         con = connect_db()
         if con:
+            print('Saving to database')
             transform.to_db(con, data1, data2)
     elif save_to == 'to_csv':
         transform.to_csv(data1, data2)
@@ -53,4 +56,3 @@ if __name__ == '__main__':
         print('Argument value is invalid')
 
     print('done')
-    print(os.getenv('save'))

@@ -8,19 +8,28 @@ services:
     image: postgres:alpine
     container_name: json_to_csv_task
     ports:
-      - 54321:5432
+      - "5432:5432"
+    expose:
+      - 5432
     env_file:
       - .\config\.env
     volumes:
       - postgres:/var/lib/postgresql/data/
 
   task:
-    build:
-      context: .
     depends_on:
       - postgres
     env_file:
       - .\.env
+    environment:
+      - WAIT_HOSTS=postgres:5432
+      - WAIT_HOSTS_TIMEOUT=100
+      - WAIT_SLEEP_INTERVAL=5
+      - WAIT_HOST_CONNECT_TIMEOUT=5
     command:
       - sh
-      - python main.py
+      - c
+      - |
+        /wait
+        python main.py
+    build: .

@@ -34,5 +34,6 @@ def to_db(con, *args):
     data = data.applymap(json.dumps)
     try:
         data.to_sql(name='loan_application', con=con, if_exists='append', index=False)
+        print('Saved to database')
     except SQLAlchemyError as e:
         print(e)
