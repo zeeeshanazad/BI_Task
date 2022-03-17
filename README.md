@@ -15,3 +15,11 @@ The followings are your missions requirement, please read them thoroughly before
 5. Attach your GitHub repository or gist once you are finished. 
 
 Feel free to reach out to us if you got any question or idea while approaching the tasks! Enjoy coding!
+
+## Guidelines to Run project:
+RUN: docker-compose up -d
+OR
+RUN: docker-compose up --build -d
+
+This project saves all information directly into the database, if csv file is reuired please change "save_to" variable from "to_db" to "to_csv" in the "main.py" file
+Initially, all the main fields in JSON files are treated as main columns e.g, [included, id, type, attributes, relationships] are the columns. If the requirement is to dig deeper and explore more columns, please change the "level" variable from "1" to "2". But as this level increases, column names will have the prefix of their parent key values.
