@@ -1,0 +1,26 @@
+version: "3"
+
+volumes:
+  postgres:
+
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: json_to_csv_task
+    ports:
+      - 54321:5432
+    env_file:
+      - .\config\.env
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+
+  task:
+    build:
+      context: .
+    depends_on:
+      - postgres
+    env_file:
+      - .\.env
+    command:
+      - sh
+      - python main.py
